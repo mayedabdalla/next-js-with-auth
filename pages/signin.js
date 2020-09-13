@@ -7,11 +7,12 @@ import { getErrorMessage } from '../lib/form'
 import Field from '../components/field'
 
 const SignInMutation = gql`
-  mutation SignInMutation($email: String!, $password: String!) {
-    signIn(input: { email: $email, password: $password }) {
+  mutation SignInMutation($username: String!, $password: String!) {
+    signIn(input: { username: $username, password: $password }) {
       user {
         id
         email
+        username
       }
     }
   }
@@ -26,14 +27,14 @@ function SignIn() {
   async function handleSubmit(event) {
     event.preventDefault()
 
-    const emailElement = event.currentTarget.elements.email
+    const usernameElement = event.currentTarget.elements.username
     const passwordElement = event.currentTarget.elements.password
 
     try {
       await client.resetStore()
       const { data } = await signIn({
         variables: {
-          email: emailElement.value,
+          username: usernameElement.value,
           password: passwordElement.value,
         },
       })
@@ -51,11 +52,11 @@ function SignIn() {
       <form onSubmit={handleSubmit}>
         {errorMsg && <p>{errorMsg}</p>}
         <Field
-          name="email"
-          type="email"
-          autoComplete="email"
+          name="username"
+          type="text"
+          autoComplete="username"
           required
-          label="Email"
+          label="Username"
         />
         <Field
           name="password"

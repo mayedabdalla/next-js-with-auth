@@ -4,16 +4,18 @@ export const typeDefs = gql`
   type User {
     id: ID!
     email: String!
+    username: String!
     createdAt: Int!
   }
 
   input SignUpInput {
     email: String!
     password: String!
+    username: String!
   }
 
   input SignInInput {
-    email: String!
+    username: String!
     password: String!
   }
 
